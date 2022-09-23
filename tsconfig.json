@@ -9,6 +9,10 @@
         "target": "ES2015",
         "module": "CommonJS",
         "declaration": true,
+        "declarationDir": "./types",
+        "typeRoots": [
+            "./dist/index.d.ts"
+        ],
         "outDir": "./dist",
         "strict": true
     }
