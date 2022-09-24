@@ -8,7 +8,10 @@ export class MusicBrainzApi {
     }
 
     private buildQuery(queryArgs: SearchQueryArgs) {
-        return Object.keys(queryArgs).map(k => `${String(k)}:${String(queryArgs[k as (keyof typeof queryArgs)])}`).join(" AND ")
+        return Object.keys(queryArgs)
+            .map(k => `${String(k)}:${String(queryArgs[k as (keyof typeof queryArgs)])}`)
+            .filter(param => param.split(':')[1] != "undefined")
+            .join(" AND ")
     }
 
     public async searchRecording(queryArgs: SearchRecordingQueryArgs) {
