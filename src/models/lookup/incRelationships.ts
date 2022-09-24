@@ -1,0 +1,1 @@
+type incRelationships = "discids" | "media" | "isrcs" | "artist-credits" | "various-artists" | "aliases" | "annotation" | "tags" | "ratings" | "genres"
