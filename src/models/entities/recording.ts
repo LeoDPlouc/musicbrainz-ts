@@ -5,6 +5,8 @@ interface Recording {
     video: boolean
     "artist-credit": ArtistCredit[]
     "first-release-date": string
-    releases: Release[]
-    tags: Tag[]
+    releases?: Release[]
+    tags?: Tag[]
+    disambiguation?: string
+    isrcs?: string[]
 }

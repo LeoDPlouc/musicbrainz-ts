@@ -1,4 +1,4 @@
-import { searchRecordingRequest } from "./requests"
+import { lookupRecordingRequest, searchRecordingRequest } from "./requests"
 
 export class MusicBrainzApi {
     private useragent: string
@@ -7,16 +7,31 @@ export class MusicBrainzApi {
         this.useragent = `${appName}/${appVersion} (${contactLink})`
     }
 
-    private buildQuery(queryArgs: SearchQueryArgs) {
+    private buildSearchQuery(queryArgs: SearchQueryArgs): string {
         return Object.keys(queryArgs)
             .map(k => `${String(k)}:${String(queryArgs[k as (keyof typeof queryArgs)])}`)
             .filter(param => param.split(':')[1] != "undefined")
             .join(" AND ")
     }
 
-    public async searchRecording(queryArgs: SearchRecordingQueryArgs) {
+    public async searchRecording(queryArgs: SearchRecordingQueryArgs): Promise<RecordingSearchResults> {
+        const query = this.buildSearchQuery(queryArgs)
 
-        const query = this.buildQuery(queryArgs)
         return await searchRecordingRequest(query, this.useragent)
+    }
+
+    private buildLookupQuery(queryArgs: LookupQueryArgs): string {
+        let query = queryArgs.mbid
+        if (queryArgs.inc) {
+            query += "?inc=" + queryArgs.inc.join("+")
+        }
+        return query
+
+    }
+
+    public async lookupRecording(queryArgs: LookupRecordingQueryArgs): Promise<Recording> {
+        const query = this.buildLookupQuery(queryArgs)
+
+        return await lookupRecordingRequest(query, this.useragent)
     }
 }

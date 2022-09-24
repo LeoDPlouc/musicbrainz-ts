@@ -7,7 +7,7 @@ let queue: (() => Promise<void>)[] = []
 
 function startTimer() {
     if (!interval) {
-        interval = setInterval(dispatchRequest, 1000)
+        interval = setInterval(dispatchRequest, 1100)
     }
 }
 
