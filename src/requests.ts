@@ -21,3 +21,11 @@ export async function lookupRecordingRequest(query: string, useragent: string): 
 
     return res.data
 }
+
+export async function lookupReleaseRequest(query: string, useragent: string): Promise<Release> {
+    let url = encodeURI(`${apiUrl}release/${query}`)
+
+    const res = await queueRequest(url, buildHeader(useragent))
+
+    return res.data
+}
