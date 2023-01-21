@@ -1,4 +1,4 @@
-import { lookupRecordingRequest, lookupReleaseRequest, searchRecordingRequest } from "./requests"
+import { lookupArtistRequest, lookupRecordingRequest, lookupReleaseRequest, searchRecordingRequest } from "./requests"
 
 export class MusicBrainzApi {
     private useragent: string
@@ -39,5 +39,11 @@ export class MusicBrainzApi {
         const query = this.buildLookupQuery(queryArgs)
 
         return await lookupReleaseRequest(query, this.useragent)
+    }
+
+    public async lookupArtist(queryArgs: LookupArtistQueryArgs): Promise<Artist> {
+        const query = this.buildLookupQuery(queryArgs)
+
+        return await lookupArtistRequest(query, this.useragent)
     }
 }

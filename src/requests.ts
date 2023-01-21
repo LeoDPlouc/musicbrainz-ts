@@ -29,3 +29,11 @@ export async function lookupReleaseRequest(query: string, useragent: string): Pr
 
     return res.data
 }
+
+export async function lookupArtistRequest(query: string, useragent: string): Promise<Artist> {
+    let url = encodeURI(`${apiUrl}artist/${query}`)
+
+    const res = await queueRequest(url, buildHeader(useragent))
+
+    return res.data
+}
